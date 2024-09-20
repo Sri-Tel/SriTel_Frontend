@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import './App.css'
-import { Button } from "@/components/ui/button"
+import LogIn from './Pages/LogIn'
 
 function App() {
   return (
     <div>
-      <Button>Click me</Button>
+      <LogIn />
     </div>
   )
 }
 
-export default App
+export default App;
