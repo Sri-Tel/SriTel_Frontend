@@ -1,6 +1,6 @@
-import { CircleUser, Menu, Package2, TrendingUp } from "lucide-react";
+import { CircleUser, Menu, Package2 } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/badge";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -25,6 +25,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 import { PolarRadiusAxis } from "recharts";
 import { RadialBarChart, PolarGrid, RadialBar, Label } from "recharts";
+
 
 export const description =
   "An application shell with a header and main content area. The header has a navbar, a search input and and a user nav dropdown. The user nav is toggled by a button with an avatar image.";
@@ -64,25 +65,25 @@ function Dashboard() {
             href="#"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            Orders
+            Services
           </a>
           <a
             href="#"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            Products
-          </a>
-          <a
-            href="#"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Customers
+            Usage
           </a>
           <a
             href="#"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
             Analytics
+          </a>
+          <a
+            href="#"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Support
           </a>
         </nav>
         <Sheet>
@@ -204,7 +205,9 @@ function Dashboard() {
           <Card className="xl:col-span-2" x-chunk="dashboard-01-chunk-4">
             <CardHeader className="flex flex-row items-center">
               <div className="grid gap-2">
-                <CardTitle>Data Usage</CardTitle>
+                <CardTitle className="flex flex-row items-center justify-between">
+                  Data Usage
+                </CardTitle>
                 <CardDescription>Remain data for your package</CardDescription>
               </div>
             </CardHeader>
@@ -278,97 +281,25 @@ function Dashboard() {
                 </CardContent>
                 <CardFooter className="flex-col gap-2 text-sm">
                   <div className="leading-none text-muted-foreground">
-                  Showing remain DayTime data for this month.
+                    Showing remain DayTime data for this month.
                   </div>
                 </CardFooter>
               </Card>
 
-              <Card className="flex flex-col">
-                <CardHeader className="items-center pb-0">
-                  <CardTitle>Night Time</CardTitle>
-                  <CardDescription>January - June 2024</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-1 pb-0">
-                  <ChartContainer
-                    config={chartConfig}
-                    className="mx-auto aspect-square max-h-[250px]"
-                  >
-                    <RadialBarChart
-                      data={chartData}
-                      startAngle={0}
-                      endAngle={250}
-                      innerRadius={80}
-                      outerRadius={110}
-                    >
-                      <PolarGrid
-                        gridType="circle"
-                        radialLines={false}
-                        stroke="none"
-                        className="first:fill-muted last:fill-background"
-                        polarRadius={[86, 74]}
-                      />
-                      <RadialBar
-                        dataKey="visitors"
-                        background
-                        cornerRadius={10}
-                      />
-                      <PolarRadiusAxis
-                        tick={false}
-                        tickLine={false}
-                        axisLine={false}
-                      >
-                        <Label
-                          content={({ viewBox }) => {
-                            if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                              return (
-                                <text
-                                  x={viewBox.cx}
-                                  y={viewBox.cy}
-                                  textAnchor="middle"
-                                  dominantBaseline="middle"
-                                >
-                                  <tspan
-                                    x={viewBox.cx}
-                                    y={viewBox.cy}
-                                    className="fill-foreground text-4xl font-bold"
-                                  >
-                                    {chartData[0].visitors.toLocaleString()}
-                                  </tspan>
-                                  <tspan
-                                    x={viewBox.cx}
-                                    y={(viewBox.cy || 0) + 24}
-                                    className="fill-muted-foreground"
-                                  >
-                                    GB
-                                  </tspan>
-                                </text>
-                              );
-                            }
-                          }}
-                        />
-                      </PolarRadiusAxis>
-                    </RadialBarChart>
-                  </ChartContainer>
-                </CardContent>
-                <CardFooter className="flex-col gap-2 text-sm">
-                  <div className="leading-none text-muted-foreground">
-                    Showing remain night time data for this month.
-                  </div>
-                </CardFooter>
-              </Card>
             </CardContent>
           </Card>
+
           <Card x-chunk="dashboard-01-chunk-5">
             <CardHeader>
               <CardTitle>Billing</CardTitle>
             </CardHeader>
             <CardContent className="grid gap-8">
               <div className="flex items-center gap-4">
-              Total Payable : <Badge >Badge</Badge>
+                Total Payable : <Badge>Rs. 3500</Badge>
               </div>
               <div className="flex items-center gap-4">
-              <Button variant="outline">Bill History</Button>
-              <Button variant="outline">Pay Now</Button>
+                <Button variant="outline">Bill History</Button>
+                <Button variant="outline">Pay Now</Button>
               </div>
             </CardContent>
           </Card>

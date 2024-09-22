@@ -1,14 +1,14 @@
-import { useState } from 'react'
-import './App.css'
-// import LogIn from './Pages/LogIn'
-import  Dashboard from './Pages/DashBoard'
+import { useState } from "react";
+import "./App.css";
+
+import BillList from "./Pages/BillList";
 
 function App() {
   return (
     <div>
-      < Dashboard/>
+      <BillList />
     </div>
-  )
+  );
 }
 
 export default App;
