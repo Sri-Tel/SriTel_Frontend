@@ -1,5 +1,7 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+
 import {
   Card,
   CardContent,
@@ -12,31 +14,29 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import axios from "axios";
 
-export const description =
-  "A login form with email and password. There's an option to login with Google and a link to sign up if you don't have an account.";
-
 export function LogIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
     try {
-
       const data = new URLSearchParams();
-      data.append("client_id", "YOUR_CLIENT_ID"); 
+      data.append("client_id", process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID || "YOUR_CLIENT_ID");
+      data.append("client_secret", process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET || "YOUR_CLIENT_SECRET");
       data.append("grant_type", "password");
       data.append("username", email);
       data.append("password", password);
 
       // Make request to Keycloak for the token
       const response = await axios.post(
-        "https://your-keycloak-server/auth/realms/YOUR_REALM/protocol/openid-connect/token",
+        `${process.env.NEXT_PUBLIC_KEYCLOAK_ISSUER}/protocol/openid-connect/token`,
         data,
         {
           headers: {
@@ -48,14 +48,16 @@ export function LogIn() {
       // Store the token (for example, in localStorage)
       localStorage.setItem("token", response.data.access_token);
 
-      // Redirect or update UI upon successful login
-      console.log("Login successful:", response.data);
-      setLoading(false);
-
-      // Optionally redirect user to another page, e.g., dashboard
-      window.location.href = "/dashboard";
+      // Redirect upon successful login
+      router.push("/dashboard");
     } catch (error) {
-      setError("Invalid login credentials. Please try again.");
+      if (axios.isAxiosError(error)) {
+        console.error("Login error:", error.response?.data || error.message);
+        setError(error.response?.data?.error_description || "Invalid login credentials. Please try again.");
+      } else {
+        console.error("Login error:", error);
+        setError("An unexpected error occurred. Please try again.");
+      }
       setLoading(false);
     }
   };
@@ -85,10 +87,7 @@ export function LogIn() {
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password">Password</Label>
-                <a
-                  href="#"
-                  className="ml-auto inline-block text-sm underline"
-                >
+                <a href="/auth/forgot-password" className="ml-auto inline-block text-sm underline">
                   Forgot your password?
                 </a>
               </div>
@@ -110,7 +109,7 @@ export function LogIn() {
           </div>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
-            <a href="#" className="ml-auto inline-block text-sm underline">
+            <a href="/auth/signup" className="ml-auto inline-block text-sm underline">
               Sign up
             </a>
           </div>
