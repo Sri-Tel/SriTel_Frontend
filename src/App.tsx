@@ -1,15 +1,9 @@
-import { useEffect } from 'react'
-import './App.css'
-// import LogIn from './Pages/LogIn'
-import Dashboard from './Pages/DashBoard'
 
-declare global {
-  interface Window {
-    chatwootSDK: {
-      run: (config: { websiteToken: string; baseUrl: string }) => void;
-    };
-  }
-}
+import { useState } from "react";
+import "./App.css";
+
+import BillList from "./Pages/BillList";
+
 
 function App() {
   useEffect(() => {
@@ -33,7 +27,10 @@ function App() {
 
   return (
     <div>
-      <Dashboard />
+
+      <BillList />
+
+
     </div>
   );
 }
