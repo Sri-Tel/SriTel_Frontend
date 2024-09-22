@@ -8,7 +8,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  color-scheme: dark light;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
@@ -134,5 +134,11 @@ button:focus-visible {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .border-border {
+    border: 1px solid var(--border); /* Use your custom border variable */
   }
 }

@@ -1,3 +1,4 @@
+"use client"; 
 import { CircleUser, Menu, Package2, TrendingUp } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge"
