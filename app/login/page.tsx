@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/context/AuthContext";
 
 import {
   Card,
@@ -20,14 +21,15 @@ export function LogIn() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-
+  const { login } = useAuth();
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-
+    
     try {
       const data = new URLSearchParams();
+     
       data.append("client_id", process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID || "YOUR_CLIENT_ID");
       data.append("client_secret", process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET || "YOUR_CLIENT_SECRET");
       data.append("grant_type", "password");
@@ -46,10 +48,13 @@ export function LogIn() {
       );
 
       // Store the token (for example, in localStorage)
-      localStorage.setItem("token", response.data.access_token);
+      
+      const token = response.data.access_token;
+      login(token);
+      console.log("Login successful:", response.data);
 
       // Redirect upon successful login
-      router.push("/dashboard");
+      router.push("/");
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("Login error:", error.response?.data || error.message);

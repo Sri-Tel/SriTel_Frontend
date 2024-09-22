@@ -1,7 +1,7 @@
 "use client";
 import React from 'react'
 import "./globals.css";
-import { SessionContext } from '@/context/SessionContext';
+import { AuthProvider } from '@/context/AuthContext';
 export default function RootLayout({
   children,
 }: {
@@ -9,13 +9,15 @@ export default function RootLayout({
 }) {
 
   return (
+    <AuthProvider>
  <html lang="en">
- <SessionContext.Provider value={null}>
+ 
   <body>
       {children}
   </body> 
-    </SessionContext.Provider>
+    
     </html>
+    </AuthProvider>
 
   )
 }
