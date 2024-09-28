@@ -298,11 +298,7 @@ console.log(response);
                 <CardFooter className="flex-col gap-2 text-sm">
                   <div className="leading-none text-muted-foreground">
                     Showing remain DayTime data for this month.
-                    {token}
-                    {decodedToken?.email}
-                    {decodedToken?.username}
-                    {decodedToken?.Sritel_No}
-                  </div>
+                                      </div>
                 </CardFooter>
               </Card>
 
