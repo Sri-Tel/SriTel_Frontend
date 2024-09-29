@@ -38,9 +38,9 @@ function Payment({ isOpen, onClose, billId, amount }: PaymentModalProps) {
 
     try {
       const response = await fetch(
-        "http://localhost:8222/api/v1/payment/markpaid",
+        "http://localhost:8222/api/v1/billing/updatePayment/${billId}",
         {
-          method: "POST",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
