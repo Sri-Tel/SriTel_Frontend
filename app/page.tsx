@@ -243,7 +243,6 @@ function Dashboard() {
               <div className="grid gap-2">
                 <CardTitle className="flex flex-row items-center justify-between">
                   Data Usage
-                  <pre>{JSON.stringify(response, null, 2)}</pre>
                 </CardTitle>
                 <CardDescription>Remain data for your package</CardDescription>
               </div>

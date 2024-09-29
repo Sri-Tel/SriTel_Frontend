@@ -26,6 +26,8 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ChartConfig } from "@/components/ui/chart";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { use, useEffect, useState } from "react";
+import useApiRequest from "@/components/ui/useApiResquest";
+import { useAuth } from "@/context/AuthContext";
 
 
 export const description =
@@ -45,43 +47,24 @@ function BillList() {
 
   const [billingList, setBillingList] = useState([] as Bill[]);
 
+  const { token, logout, decodedToken } = useAuth();
+  const apiUrl = `http://localhost:8222/api/v1/billing/0718049940`;
+
+  const { response, error, loading } = useApiRequest({
+    token,
+    apiUrl,
+    method: "GET",
+  });
+
+
+
+
   useEffect(() => {
-    // fetch("/api/billing")
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     setBillingList(data);
-    //   });
-    setBillingList([{
-      id: "1",
-      userId: "1",
-      amount: 499.99,
-      invoiceNumber: "INV-123",
-      status: "Paid",
-      billingDate: "2023-07-12 10:42 AM",
-      dueDate: "2023-07-12 10:42 AM",
-    },
-    {
-      id: "2",
-      userId: "1",
-      amount: 499.99,
-      invoiceNumber: "INV-123",
-      status: "Paid",
-      billingDate: "2023-07-12 10:42 AM",
-      dueDate: "2023-07-12 10:42 AM",
-    },
-    {
-      id: "3",
-      userId: "1",
-      amount: 499.99,
-      invoiceNumber: "INV-123",
-      status: "Paid",
-      billingDate: "2023-07-12 10:42 AM",
-      dueDate: "2023-07-12 10:42 AM",
-    }
-  ])
-  }, []);
+    if (response)
+      setBillingList(response as Bill[]);
+  }, [response]);
 
-
+  console.log(billingList);
   return (
     <div className="flex min-h-screen w-full flex-col">
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
