@@ -28,10 +28,20 @@ interface Package {
   description: string;
 }
 
+interface PackageService {
+  id: string;
+  serviceId: string;
+  userId: string;
+  serviceName: string;
+  price: number;
+  description: string;
+  activated?: boolean;
+}
+
 
 function Packages() {
 
-  const [packageList, setPackageList] = useState([] as Package[]);
+  const [packageList, setPackageList] = useState([] as PackageService[]);
   
   const { token, logout, decodedToken } = useAuth();
   const apiUrl = `http://localhost:8222/api/v1/service`;
@@ -57,9 +67,49 @@ function Packages() {
   });
 
   useEffect(() => {
-    if (activatedServicesResponse) 
-      console.log(activatedServicesResponse);
+    if (activatedServicesResponse){
+
+      const activatedServices = activatedServicesResponse as PackageService[];
+      const updatedPackageList = packageList.map((pkg) => {
+        const activatedService = activatedServices.find((service) => service.serviceId === pkg.id);
+        if (activatedService) {
+          return {...pkg, activated: true};
+        }
+        return {...pkg, activated: false};
+      });
+
+      setPackageList(updatedPackageList);
+    }
+      
   }, [activatedServicesResponse]);
+
+  console.log("packageList", packageList);
+
+  const handleToggleOfService = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const serviceId = event.target.id;
+
+    // activate service
+    const activateServiceUrl = `http://localhost:8222/api/v1/service/addCustomerService`;
+
+    const body = {
+      serviceId: serviceId,
+      customerId: decodedToken?.Sritel_No,
+      serviceStatus : "ACTIVE"
+    };
+
+    const { response: activateServiceResponse, error: activateServiceError, loading: activateServiceLoading } = useApiRequest({
+      token,
+      apiUrl: activateServiceUrl,
+      method: "POST",
+      data: body
+    });
+
+    useEffect(() => {
+      if (response) 
+        console.log("serviceId", response); 
+    }, [response]);
+    
+  }
 
   return (
     <div className="flex min-h-screen w-full flex-col">
@@ -138,8 +188,8 @@ function Packages() {
                       </p>
                       <br />
                       <div className="flex items-center space-x-2">
-                        <Switch id="airplane-mode" />
-                        <Label htmlFor="airplane-mode">Activate</Label>
+                        <Switch id={pkg.id} checked={pkg.activated} onClick={handleToggleOfService}/> 
+                        <Label htmlFor="airplane-mode">{(pkg.activated) ? "Deactivate" : "Activate"}</Label>
                       </div>
                     </CardContent>
                   </Card>
