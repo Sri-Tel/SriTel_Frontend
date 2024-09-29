@@ -17,6 +17,7 @@ import { Label } from "@/components/ui/label";
 import { use, useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import useApiRequest from "@/components/ui/useApiResquest";
+import axios from "axios";
 export const description =
   "An application shell with a header and main content area. The header has a navbar, a search input and and a user nav dropdown. The user nav is toggled by a button with an avatar image.";
 
@@ -97,18 +98,27 @@ function Packages() {
       serviceStatus : "ACTIVE"
     };
 
-    const { response: activateServiceResponse, error: activateServiceError, loading: activateServiceLoading } = useApiRequest({
-      token,
-      apiUrl: activateServiceUrl,
-      method: "POST",
-      data: body
+    // make a direct call axios call
+    axios.post(activateServiceUrl, body, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    }).then((response) => {
+      console.log("response", response);
+
+      // Update packageList after the service is toggled
+    const updatedPackageList = packageList.map(pkg => {
+      if (pkg.id === serviceId) {
+        return { ...pkg, activated: pkg.activated ? false : true };
+      }
+      return pkg;
     });
 
-    useEffect(() => {
-      if (response) 
-        console.log("serviceId", response); 
-    }, [response]);
-    
+    setPackageList(updatedPackageList);
+    }).catch((error) => {
+      console.log("error", error);
+    });
   }
 
   return (
@@ -185,6 +195,15 @@ function Packages() {
                       </Button>
                       <p className="text-xs text-muted-foreground">
                         {pkg.description}
+                      </p>
+                      <p>
+                        <span className="text-xl font-bold text-foreground">
+                         LKR. {pkg.price}
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                          {" "}
+                          / month
+                        </span>
                       </p>
                       <br />
                       <div className="flex items-center space-x-2">
