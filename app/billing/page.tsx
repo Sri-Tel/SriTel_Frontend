@@ -147,7 +147,7 @@ function BillList() {
         </Sheet>
         <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
           <div className="ml-auto flex-1 sm:flex-initial">
-            <div className="relative"></div>
+            <div className="relative">{decodedToken?.email}</div>
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -182,7 +182,7 @@ function BillList() {
                         <TableHead className="hidden w-[100px] sm:table-cell">
                           <span className="sr-only">Image</span>
                         </TableHead>
-                        <TableHead>Name</TableHead>
+                        <TableHead>Billing Reference</TableHead>
                         <TableHead>Status</TableHead>
                         <TableHead className="hidden md:table-cell">
                           Price
@@ -208,7 +208,7 @@ function BillList() {
                               />
                             </TableCell>
                             <TableCell className="hidden md:table-cell">
-                              {bill.invoiceNumber}
+                              Bill-Ref: {bill.id}
                             </TableCell>
                             <TableCell>
                               <Badge variant="outline">{bill.status}</Badge>
