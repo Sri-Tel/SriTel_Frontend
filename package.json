@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-switch": "^1.1.0",
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
     "cookies-next": "^4.2.1",
     "cryptr": "^6.3.0",
     "jwt-decode": "^4.0.0",
@@ -24,7 +26,8 @@
     "react-dom": "^18.3.1",
     "recharts": "^2.12.7",
     "sri-tel": "file:",
-    "tailwind-merge": "^2.5.2"
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^20",

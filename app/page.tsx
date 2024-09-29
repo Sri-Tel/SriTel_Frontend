@@ -1,6 +1,6 @@
 "use client";
 import { CircleUser, Menu, Package2, TrendingUp } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -30,6 +30,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 import { PolarRadiusAxis } from "recharts";
 import { RadialBarChart, PolarGrid, RadialBar, Label } from "recharts";
+import Packages from './packages/page';
 
 export const description =
   "An application shell with a header and main content area. The header has a navbar, a search input and and a user nav dropdown. The user nav is toggled by a button with an avatar image.";
@@ -37,6 +38,24 @@ export const description =
 const chartData = [
   { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
 ];
+
+// "id": "66f6bfc4ce84b621776316f1",
+// "userId": "0718049940",
+// "amount": 1500,
+// "invoiceNumber": null,
+// "status": "PENDING",
+// "billingDate": "2024-09-27",
+// "dueDate": "2024-10-27"
+interface BillData {
+  id: string;
+  userId: string;
+  amount: number;
+  invoiceNumber: string;
+  status: string;
+  billingDate: string;
+  dueDate: string;
+}
+
 const chartConfig = {
   visitors: {
     label: "Visitors",
@@ -48,15 +67,27 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 function Dashboard() {
+  const [billData, setBillData] = useState<BillData | null>(null);
+
+
   const { token, logout, decodedToken } = useAuth();
   const apiUrl =
-    "http://localhost:8222/api/v1/billing/" + decodedToken?.Sritel_No;
+    // "http://localhost:8222/api/v1/billing/" + decodedToken?.Sritel_No;
+    "http://localhost:8222/api/v1/customer";
   const { response, error, loading } = useApiRequest({
     token,
     apiUrl,
     method: "GET",
   });
-  console.log(response);
+
+  // typecast the response to the BillData type if not null
+
+
+  if (response) {
+    setBillData(response as BillData);
+  }
+
+
 
   const router = useRouter();
   const handleRedirect = (path: string) => {
@@ -75,34 +106,22 @@ function Dashboard() {
             <span className="sr-only">Acme Inc</span>
           </a>
           <a
-            href="#"
+            href="/"
             className="text-foreground transition-colors hover:text-foreground"
           >
             Dashboard
           </a>
           <a
-            href="#"
+            href="/packages"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            Services
+            Packages
           </a>
           <a
-            href="#"
+            href="/billing"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            Usage
-          </a>
-          <a
-            href="#"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Analytics
-          </a>
-          <a
-            href="#"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Support
+            Billing
           </a>
         </nav>
         <Sheet>
@@ -314,18 +333,31 @@ function Dashboard() {
             </CardHeader>
             <CardContent className="grid gap-8">
               <div className="flex items-center gap-4">
-                Total Payable : <Badge>Rs. 3500</Badge>
+                Bill Date : <Badge>{billData?.billingDate}</Badge>
+              </div>
+              <div className="flex items-center gap-4">
+                Bill Due Date : <Badge>{billData?.dueDate}</Badge>
+              </div>
+              <div className="flex items-center gap-4">
+                Status : <Badge>{billData?.status}</Badge>
+              </div>
+              <div className="flex items-center gap-4">
+                Total Payable : <Badge>{billData?.amount}</Badge>
               </div>
               <div className="flex items-center gap-4">
                 <Button
                   variant="outline"
-                  onClick={() => handleRedirect("/src/Pages/BillList")}
+                  onClick={() => handleRedirect("/billing")}
                 >
                   Bill History
                 </Button>
                 <Button variant="outline">Pay Now</Button>
               </div>
             </CardContent>
+            {/* {token}
+            {decodedToken?.email}
+            {decodedToken?.username}
+            {decodedToken?.Sritel_No} */}
           </Card>
         </div>
       </main>
