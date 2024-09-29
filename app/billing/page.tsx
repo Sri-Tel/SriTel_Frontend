@@ -1,3 +1,4 @@
+"use client";
 import { CircleUser, Menu, MoreHorizontal, Package2 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -24,13 +25,63 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 import { ChartConfig } from "@/components/ui/chart";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { use, useEffect, useState } from "react";
 
 
 export const description =
   "An application shell with a header and main content area. The header has a navbar, a search input and and a user nav dropdown. The user nav is toggled by a button with an avatar image.";
 
+interface Bill {
+  id: string;
+  userId: string;
+  amount: number;
+  invoiceNumber: string;
+  status: string;
+  billingDate: string;
+  dueDate: string;
+}
 
 function BillList() {
+
+  const [billingList, setBillingList] = useState([] as Bill[]);
+
+  useEffect(() => {
+    // fetch("/api/billing")
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     setBillingList(data);
+    //   });
+    setBillingList([{
+      id: "1",
+      userId: "1",
+      amount: 499.99,
+      invoiceNumber: "INV-123",
+      status: "Paid",
+      billingDate: "2023-07-12 10:42 AM",
+      dueDate: "2023-07-12 10:42 AM",
+    },
+    {
+      id: "2",
+      userId: "1",
+      amount: 499.99,
+      invoiceNumber: "INV-123",
+      status: "Paid",
+      billingDate: "2023-07-12 10:42 AM",
+      dueDate: "2023-07-12 10:42 AM",
+    },
+    {
+      id: "3",
+      userId: "1",
+      amount: 499.99,
+      invoiceNumber: "INV-123",
+      status: "Paid",
+      billingDate: "2023-07-12 10:42 AM",
+      dueDate: "2023-07-12 10:42 AM",
+    }
+  ])
+  }, []);
+
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -44,7 +95,7 @@ function BillList() {
           </a>
           <a
             href="/"
-            className="text-foreground transition-colors hover:text-foreground"
+            className="text-muted-foreground transition-colors hover:text-foreground"
           >
             Dashboard
           </a>
@@ -56,7 +107,7 @@ function BillList() {
           </a>
           <a
             href="/billing"
-            className="text-muted-foreground transition-colors hover:text-foreground"
+            className="text-foreground transition-colors hover:text-foreground"
           >
             Billing
           </a>
@@ -154,10 +205,6 @@ function BillList() {
                           Price
                         </TableHead>
                         <TableHead className="hidden md:table-cell">
-                          Total Usage
-                          (GB)
-                        </TableHead>
-                        <TableHead className="hidden md:table-cell">
                           Recieved at
                         </TableHead>
                         <TableHead>
@@ -166,267 +213,54 @@ function BillList() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      <TableRow>
-                        <TableCell className="hidden sm:table-cell">
-                        <img className="aspect-square rounded-md object-cover"
-                            height="64"
-                            src="https://images.app.goo.gl/vHDgTyWs1Vc9kPh3A"
-                            width="64"/>
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          For Month of August
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant="outline">Paid</Badge>
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          $499.99
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          25
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          2023-07-12 10:42 AM
-                        </TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button
-                                aria-haspopup="true"
-                                size="icon"
-                                variant="ghost"
-                              >
-                                <MoreHorizontal className="h-4 w-4" />
-                                <span className="sr-only">Toggle menu</span>
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                              <DropdownMenuItem>View</DropdownMenuItem>
-                              <DropdownMenuItem>Delete</DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell className="hidden sm:table-cell">
-                        <img className="aspect-square rounded-md object-cover"
-                            height="64"
-                            src="https://images.app.goo.gl/vHDgTyWs1Vc9kPh3A"
-                            width="64"/>
-                        </TableCell>
-                        <TableCell className="font-medium">
-                        For Month of July
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant="outline">Paid</Badge>
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          $129.99
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          100
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          2023-10-18 03:21 PM
-                        </TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button
-                                aria-haspopup="true"
-                                size="icon"
-                                variant="ghost"
-                              >
-                                <MoreHorizontal className="h-4 w-4" />
-                                <span className="sr-only">Toggle menu</span>
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                              <DropdownMenuItem>View</DropdownMenuItem>
-                              <DropdownMenuItem>Delete</DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell className="hidden sm:table-cell">
-                        <img className="aspect-square rounded-md object-cover"
-                            height="64"
-                            src="https://images.app.goo.gl/vHDgTyWs1Vc9kPh3A"
-                            width="64"/>   
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                        For Month of June
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant="outline">Paid</Badge>
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          $39.99
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          50
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          2023-11-29 08:15 AM
-                        </TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button
-                                aria-haspopup="true"
-                                size="icon"
-                                variant="ghost"
-                              >
-                                <MoreHorizontal className="h-4 w-4" />
-                                <span className="sr-only">Toggle menu</span>
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                              <DropdownMenuItem>View</DropdownMenuItem>
-                              <DropdownMenuItem>Delete</DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell className="hidden sm:table-cell">
-                        <img className="aspect-square rounded-md object-cover"
-                            height="64"
-                            src="https://images.app.goo.gl/vHDgTyWs1Vc9kPh3A"
-                            width="64"/>
-                        </TableCell>
-                        <TableCell className="font-medium">
-                        For Month of May
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant="secondary">Unpaid</Badge>
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          $2.99
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          0
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          2023-12-25 11:59 PM
-                        </TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button
-                                aria-haspopup="true"
-                                size="icon"
-                                variant="ghost"
-                              >
-                                <MoreHorizontal className="h-4 w-4" />
-                                <span className="sr-only">Toggle menu</span>
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                              <DropdownMenuItem>View</DropdownMenuItem>
-                              <DropdownMenuItem>Delete</DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell className="hidden sm:table-cell">
-                        <img className="aspect-square rounded-md object-cover"
-                            height="64"
-                            src="https://images.app.goo.gl/vHDgTyWs1Vc9kPh3A"
-                            width="64"/>  
-                        </TableCell>
-                        <TableCell className="font-medium">
-                        For Month of April
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant="outline">Paid</Badge>
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          $59.99
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          75
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          2024-01-01 12:00 AM
-                        </TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button
-                                aria-haspopup="true"
-                                size="icon"
-                                variant="ghost"
-                              >
-                                <MoreHorizontal className="h-4 w-4" />
-                                <span className="sr-only">Toggle menu</span>
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                              <DropdownMenuItem>View</DropdownMenuItem>
-                              <DropdownMenuItem>Delete</DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell className="hidden sm:table-cell">
-                        <img className="aspect-square rounded-md object-cover"
-                            height="64"
-                            src="https://images.app.goo.gl/vHDgTyWs1Vc9kPh3A"
-                            width="64"/>
-                        </TableCell>
-                        <TableCell className="font-medium">
-                        For Month of March
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant="outline">Paid</Badge>
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          $199.99
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          30
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          2024-02-14 02:14 PM
-                        </TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button
-                                aria-haspopup="true"
-                                size="icon"
-                                variant="ghost"
-                              >
-                                <MoreHorizontal className="h-4 w-4" />
-                                <span className="sr-only">Toggle menu</span>
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                              <DropdownMenuItem>View</DropdownMenuItem>
-                              <DropdownMenuItem>Delete</DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
-                      </TableRow>
+                      {
+                        billingList.map((bill) => (
+                          <TableRow key={bill.id}>
+                            <TableCell className="hidden sm:table-cell">
+                              <img
+                                className="aspect-square rounded-md object-cover"
+                                height="32"
+                                src="/bill-payment.png"
+                                width="32"
+                              />
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              {bill.invoiceNumber}
+                            </TableCell>
+                            <TableCell>
+                              <Badge variant="outline">{bill.status}</Badge>
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              {bill.amount}
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              {bill.billingDate}
+                            </TableCell>
+                            <TableCell>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button
+                                    aria-haspopup="true"
+                                    size="icon"
+                                    variant="ghost"
+                                  >
+                                    <MoreHorizontal className="h-4 w-4" />
+                                    <span className="sr-only">Toggle menu</span>
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                  <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                  <DropdownMenuItem>View</DropdownMenuItem>
+                                  <DropdownMenuItem>Delete</DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      }
                     </TableBody>
                   </Table>
                 </CardContent>
-                <CardFooter>
-                  <div className="text-xs text-muted-foreground">
-                    Showing <strong>1-10</strong> of <strong>32</strong>{" "}
-                    Bills
-                  </div>
-                </CardFooter>
               </Card>
       </main>
     </div>

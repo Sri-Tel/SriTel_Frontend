@@ -222,7 +222,7 @@ function Dashboard() {
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2"></CardHeader>
             <CardContent>
               <Button asChild variant="ghost">
-                <a href="onClick={() => handleRedirect('./src/Pages/BillList')}">
+                <a href="billing">
                   <div className="text-2xl font-bold">Data Packages</div>
                 </a>
               </Button>
