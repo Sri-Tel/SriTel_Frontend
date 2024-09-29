@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/components/ui/withAuth";
 import useApiRequest from "@/components/ui/useApiResquest";
+import PaymentModal from "@/components/ui/Payment";
 
 import {
   Card,
@@ -30,7 +31,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 import { PolarRadiusAxis } from "recharts";
 import { RadialBarChart, PolarGrid, RadialBar, Label } from "recharts";
-import Packages from './packages/page';
+import Packages from "./packages/page";
 
 export const description =
   "An application shell with a header and main content area. The header has a navbar, a search input and and a user nav dropdown. The user nav is toggled by a button with an avatar image.";
@@ -49,6 +50,8 @@ interface BillData {
   dueDate: string;
 }
 
+const hardcodedAmount = 1500;
+
 const chartConfig = {
   visitors: {
     label: "Visitors",
@@ -61,6 +64,7 @@ const chartConfig = {
 
 function Dashboard() {
   const [billData, setBillData] = useState<BillData | null>(null);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
 
   const { token, logout, decodedToken } = useAuth();
   const apiUrl = `http://localhost:8222/api/v1/billing/0718049940`;
@@ -348,7 +352,12 @@ function Dashboard() {
                 >
                   Bill History
                 </Button>
-                <Button variant="outline">Pay Now</Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setShowPaymentModal(true)} // Open the modal
+                >
+                  Pay Now
+                </Button>
               </div>
             </CardContent>
             {/* {token}
@@ -358,6 +367,16 @@ function Dashboard() {
           </Card>
         </div>
       </main>
+
+      {/* Payment Modal */}
+      {showPaymentModal && (
+        <PaymentModal
+          isOpen={showPaymentModal}
+          onClose={() => setShowPaymentModal(false)} // Close the modal
+          billId="66f6bfc4ce84b621776316f1"
+          amount={hardcodedAmount}
+        />
+      )}
     </div>
   );
 }
