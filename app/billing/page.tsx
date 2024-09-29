@@ -48,7 +48,7 @@ function BillList() {
   const [billingList, setBillingList] = useState([] as Bill[]);
 
   const { token, logout, decodedToken } = useAuth();
-  const apiUrl = `http://localhost:8222/api/v1/billing/0718049940`;
+  const apiUrl = `http://localhost:8222/api/v1/billing/`+decodedToken?.Sritel_No;
 
   const { response, error, loading } = useApiRequest({
     token,

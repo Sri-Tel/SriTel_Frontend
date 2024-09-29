@@ -38,17 +38,17 @@ function Payment({ isOpen, onClose, billId, amount }: PaymentModalProps) {
 
     try {
       const response = await fetch(
-        "http://localhost:8222/api/v1/billing/updatePayment/${billId}",
+        "http://localhost:8222/api/v1/billing/updatePayment/"+billId, // Update the URL
         {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            billId,
-            amount,
-            paidDate,
-          }),
+          // body: JSON.stringify({
+          //   billId,
+          //   amount,
+          //   paidDate,
+          // }),
         }
       );
 
