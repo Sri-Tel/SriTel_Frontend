@@ -1,6 +1,6 @@
 "use client";
 import { CircleUser, Menu, Package2, TrendingUp } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -39,13 +39,6 @@ const chartData = [
   { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
 ];
 
-// "id": "66f6bfc4ce84b621776316f1",
-// "userId": "0718049940",
-// "amount": 1500,
-// "invoiceNumber": null,
-// "status": "PENDING",
-// "billingDate": "2024-09-27",
-// "dueDate": "2024-10-27"
 interface BillData {
   id: string;
   userId: string;
@@ -69,30 +62,35 @@ const chartConfig = {
 function Dashboard() {
   const [billData, setBillData] = useState<BillData | null>(null);
 
-
   const { token, logout, decodedToken } = useAuth();
-  const apiUrl =
-    // "http://localhost:8222/api/v1/billing/" + decodedToken?.Sritel_No;
-    "http://localhost:8222/api/v1/customer";
+  const apiUrl = `http://localhost:8222/api/v1/billing/0718049940`;
+
   const { response, error, loading } = useApiRequest({
     token,
     apiUrl,
     method: "GET",
   });
 
-  // typecast the response to the BillData type if not null
-
-
-  if (response) {
-    setBillData(response as BillData);
-  }
-
-
+  useEffect(() => {
+    if (response) {
+      setBillData(response[0] as BillData);
+    }
+  }, [response]);
 
   const router = useRouter();
-  const handleRedirect = (path: string) => {
+  const handleRedirect = useCallback((path: string) => {
     router.push(path);
-  };
+  }, [router]);
+
+  const formattedBillData = useMemo(() => {
+    if (billData) {
+      return {
+        ...billData,
+        amount: billData.amount, // Format the amount
+      };
+    }
+    return null;
+  }, [billData]);
 
   return (
     <div className="flex min-h-screen w-full flex-col">

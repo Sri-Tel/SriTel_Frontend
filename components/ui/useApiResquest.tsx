@@ -13,16 +13,20 @@ const useApiRequest = ({ token, apiUrl, method, data }: ApiRequestParams) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
+
+
   useEffect(() => {
     const makeRequest = async () => {
       try {
         setLoading(true);
+
         const config = {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
         };
+
 
         let res;
         switch (method) {
