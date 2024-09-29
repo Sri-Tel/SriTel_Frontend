@@ -224,7 +224,7 @@ function Dashboard() {
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2"></CardHeader>
             <CardContent>
               <Button asChild variant="ghost">
-                <a href="billing">
+                <a href="packages">
                   <div className="text-2xl font-bold">Data Packages</div>
                 </a>
               </Button>

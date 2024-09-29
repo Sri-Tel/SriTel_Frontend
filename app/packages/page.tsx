@@ -15,6 +15,8 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Label } from "@/components/ui/label";
 import { use, useEffect, useState } from "react";
+import { useAuth } from "@/context/AuthContext";
+import useApiRequest from "@/components/ui/useApiResquest";
 export const description =
   "An application shell with a header and main content area. The header has a navbar, a search input and and a user nav dropdown. The user nav is toggled by a button with an avatar image.";
 
@@ -31,39 +33,34 @@ function Packages() {
 
   const [packageList, setPackageList] = useState([] as Package[]);
   
+  const { token, logout, decodedToken } = useAuth();
+  const apiUrl = `http://localhost:8222/api/v1/service`;
+
+  const { response, error, loading } = useApiRequest({
+    token,
+    apiUrl,
+    method: "GET",
+  });
+  
   useEffect(() => {
-    // fetch("/api/packages")
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     setPackageList(data);
-    //   });
-    setPackageList([
-      {
-        id: "66f6bdb2fcc6c87d7df2a6a8",
-        serviceName: "Roaming",
-        price: 1500,
-        description: "Roaming Unlimited for all countries",
-      },
-      {
-        id: "66f6bdb2fcc6c87d7df2a6a8",
-        serviceName: "Roaming",
-        price: 1500,
-        description: "Roaming Unlimited for all countries",
-      },
-      {
-        id: "66f6bdb2fcc6c87d7df2a6a8",
-        serviceName: "Roaming",
-        price: 1500,
-        description: "Roaming Unlimited for all countries",
-      },
-      {
-        id: "66f6bdb2fcc6c87d7df2a6a8",
-        serviceName: "Roaming",
-        price: 1500,
-        description: "Roaming Unlimited for all countries",
-      },
-    ]);
-  }, []);
+    if (response) 
+      setPackageList(response as Package[]);
+  }, [response]);
+
+  // get customer activated ser.ices
+  const apiActivatedServicesUrl = `http://localhost:8222/api/v1/service/getServicesByUser/`+ decodedToken?.Sritel_No;
+  
+  const { response: activatedServicesResponse, error: activatedServicesError, loading: activatedServicesLoading } = useApiRequest({
+    token,
+    apiUrl: apiActivatedServicesUrl,
+    method: "GET",
+  });
+
+  useEffect(() => {
+    if (activatedServicesResponse) 
+      console.log(activatedServicesResponse);
+  }, [activatedServicesResponse]);
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -148,25 +145,6 @@ function Packages() {
                   </Card>
                 ))
               }
-
-              {/* <Card x-chunk="dashboard-01-chunk-0">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2"></CardHeader>
-                <CardContent>
-                  <Button asChild variant="ghost">
-                    <a href="#">
-                      <div className="text-2xl font-bold">Extra GB</div>
-                    </a>
-                  </Button>
-                  <p className="text-xs text-muted-foreground">
-                    +20.1% from last month
-                  </p>
-                  <br />
-                  <div className="flex items-center space-x-2">
-                    <Switch id="airplane-mode" />
-                    <Label htmlFor="airplane-mode">Activate</Label>
-                  </div>
-                </CardContent>
-              </Card> */}
             </div>
           </CardContent>
         </Card>
