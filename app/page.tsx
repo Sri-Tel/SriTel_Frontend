@@ -1,11 +1,11 @@
-"use client"; 
+"use client";
 import { CircleUser, Menu, Package2, TrendingUp } from "lucide-react";
 import { useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
-import withAuth  from "@/components/ui/withAuth";
+import withAuth from "@/components/ui/withAuth";
 import useApiRequest from "@/components/ui/useApiResquest";
 
 import {
@@ -31,7 +31,6 @@ import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 import { PolarRadiusAxis } from "recharts";
 import { RadialBarChart, PolarGrid, RadialBar, Label } from "recharts";
 
-
 export const description =
   "An application shell with a header and main content area. The header has a navbar, a search input and and a user nav dropdown. The user nav is toggled by a button with an avatar image.";
 
@@ -49,16 +48,21 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 function Dashboard() {
-  const { token,logout,decodedToken } = useAuth();
-  const apiUrl = 'http://localhost:8222/api/v1/billing/'+decodedToken?.Sritel_No;
+  const { token, logout, decodedToken } = useAuth();
+  const apiUrl =
+    "http://localhost:8222/api/v1/billing/" + decodedToken?.Sritel_No;
   const { response, error, loading } = useApiRequest({
     token,
     apiUrl,
-    method: 'GET',
+    method: "GET",
   });
-console.log(response);
-  
- 
+  console.log(response);
+
+  const router = useRouter();
+  const handleRedirect = (path: string) => {
+    router.push(path);
+  };
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -199,7 +203,7 @@ console.log(response);
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2"></CardHeader>
             <CardContent>
               <Button asChild variant="ghost">
-                <a href="#">
+                <a href="onClick={() => handleRedirect('./src/Pages/BillList')}">
                   <div className="text-2xl font-bold">Data Packages</div>
                 </a>
               </Button>
@@ -298,17 +302,11 @@ console.log(response);
                 <CardFooter className="flex-col gap-2 text-sm">
                   <div className="leading-none text-muted-foreground">
                     Showing remain DayTime data for this month.
-                    {token}
-                    {decodedToken?.email}
-                    {decodedToken?.username}
-                    {decodedToken?.Sritel_No}
                   </div>
                 </CardFooter>
               </Card>
-
             </CardContent>
           </Card>
-
 
           <Card x-chunk="dashboard-01-chunk-5">
             <CardHeader>
@@ -319,7 +317,12 @@ console.log(response);
                 Total Payable : <Badge>Rs. 3500</Badge>
               </div>
               <div className="flex items-center gap-4">
-                <Button variant="outline">Bill History</Button>
+                <Button
+                  variant="outline"
+                  onClick={() => handleRedirect("/src/Pages/BillList")}
+                >
+                  Bill History
+                </Button>
                 <Button variant="outline">Pay Now</Button>
               </div>
             </CardContent>

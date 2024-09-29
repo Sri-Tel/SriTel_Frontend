@@ -1,8 +1,9 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
-import BillList from "./Pages/BillList";
+// import BillList from "./Pages/Packages";
+import Packages from "./Pages/Packages";
 
 
 function App() {
@@ -28,8 +29,7 @@ function App() {
   return (
     <div>
 
-      <BillList />
-
+      <Packages />
 
     </div>
   );

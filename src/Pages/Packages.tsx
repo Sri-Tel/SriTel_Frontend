@@ -1,11 +1,7 @@
 import { CircleUser, Menu, Package2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Switch } from "@/components/ui/switch";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,9 +12,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Label } from "@/components/ui/label";
 export const description =
   "An application shell with a header and main content area. The header has a navbar, a search input and and a user nav dropdown. The user nav is toggled by a button with an avatar image.";
-
 
 function Packages() {
   return (
@@ -142,6 +138,7 @@ function Packages() {
               Packages
             </CardTitle>
           </CardHeader>
+          <br />
           <CardContent>
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
               <Card x-chunk="dashboard-01-chunk-0">
@@ -155,6 +152,11 @@ function Packages() {
                   <p className="text-xs text-muted-foreground">
                     +20.1% from last month
                   </p>
+                  <br />
+                  <div className="flex items-center space-x-2">
+                    <Switch id="airplane-mode" />
+                    <Label htmlFor="airplane-mode">Activate</Label>
+                  </div>
                 </CardContent>
               </Card>
               <Card x-chunk="dashboard-01-chunk-1">
@@ -168,6 +170,11 @@ function Packages() {
                   <p className="text-xs text-muted-foreground">
                     +20.1% from last month
                   </p>
+                  <br />
+                  <div className="flex items-center space-x-2">
+                    <Switch id="airplane-mode" />
+                    <Label htmlFor="airplane-mode">Activate</Label>
+                  </div>
                 </CardContent>
               </Card>
               <Card x-chunk="dashboard-01-chunk-2">
@@ -181,6 +188,11 @@ function Packages() {
                   <p className="text-xs text-muted-foreground">
                     +20.1% from last month
                   </p>
+                  <br />
+                  <div className="flex items-center space-x-2">
+                    <Switch id="airplane-mode" />
+                    <Label htmlFor="airplane-mode">Activate</Label>
+                  </div>
                 </CardContent>
               </Card>
               <Card x-chunk="dashboard-01-chunk-3">
@@ -194,9 +206,13 @@ function Packages() {
                   <p className="text-xs text-muted-foreground">
                     +20.1% from last month
                   </p>
+                  <br />
+                  <div className="flex items-center space-x-2">
+                    <Switch id="airplane-mode" />
+                    <Label htmlFor="airplane-mode">Activate</Label>
+                  </div>
                 </CardContent>
               </Card>
-
               <Card x-chunk="dashboard-01-chunk-3">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2"></CardHeader>
                 <CardContent>
@@ -208,34 +224,11 @@ function Packages() {
                   <p className="text-xs text-muted-foreground">
                     +20.1% from last month
                   </p>
-                </CardContent>
-              </Card>
-
-              <Card x-chunk="dashboard-01-chunk-3">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2"></CardHeader>
-                <CardContent>
-                  <Button asChild variant="ghost">
-                    <a href="#">
-                      <div className="text-2xl font-bold">Bonus Data</div>
-                    </a>
-                  </Button>
-                  <p className="text-xs text-muted-foreground">
-                    +20.1% from last month
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card x-chunk="dashboard-01-chunk-3">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2"></CardHeader>
-                <CardContent>
-                  <Button asChild variant="ghost">
-                    <a href="#">
-                      <div className="text-2xl font-bold">Bonus Data</div>
-                    </a>
-                  </Button>
-                  <p className="text-xs text-muted-foreground">
-                    +20.1% from last month
-                  </p>
+                  <br />
+                  <div className="flex items-center space-x-2">
+                    <Switch id="airplane-mode" />
+                    <Label htmlFor="airplane-mode">Activate</Label>
+                  </div>
                 </CardContent>
               </Card>
 
@@ -250,6 +243,11 @@ function Packages() {
                   <p className="text-xs text-muted-foreground">
                     +20.1% from last month
                   </p>
+                  <br />
+                  <div className="flex items-center space-x-2">
+                    <Switch id="airplane-mode" />
+                    <Label htmlFor="airplane-mode">Activate</Label>
+                  </div>
                 </CardContent>
               </Card>
 
@@ -264,6 +262,11 @@ function Packages() {
                   <p className="text-xs text-muted-foreground">
                     +20.1% from last month
                   </p>
+                  <br />
+                  <div className="flex items-center space-x-2">
+                    <Switch id="airplane-mode" />
+                    <Label htmlFor="airplane-mode">Activate</Label>
+                  </div>
                 </CardContent>
               </Card>
 
@@ -278,6 +281,11 @@ function Packages() {
                   <p className="text-xs text-muted-foreground">
                     +20.1% from last month
                   </p>
+                  <br />
+                  <div className="flex items-center space-x-2">
+                    <Switch id="airplane-mode" />
+                    <Label htmlFor="airplane-mode">Activate</Label>
+                  </div>
                 </CardContent>
               </Card>
 
@@ -292,6 +300,11 @@ function Packages() {
                   <p className="text-xs text-muted-foreground">
                     +20.1% from last month
                   </p>
+                  <br />
+                  <div className="flex items-center space-x-2">
+                    <Switch id="airplane-mode" />
+                    <Label htmlFor="airplane-mode">Activate</Label>
+                  </div>
                 </CardContent>
               </Card>
 
@@ -306,6 +319,49 @@ function Packages() {
                   <p className="text-xs text-muted-foreground">
                     +20.1% from last month
                   </p>
+                  <br />
+                  <div className="flex items-center space-x-2">
+                    <Switch id="airplane-mode" />
+                    <Label htmlFor="airplane-mode">Activate</Label>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card x-chunk="dashboard-01-chunk-3">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2"></CardHeader>
+                <CardContent>
+                  <Button asChild variant="ghost">
+                    <a href="#">
+                      <div className="text-2xl font-bold">Bonus Data</div>
+                    </a>
+                  </Button>
+                  <p className="text-xs text-muted-foreground">
+                    +20.1% from last month
+                  </p>
+                  <br />
+                  <div className="flex items-center space-x-2">
+                    <Switch id="airplane-mode" />
+                    <Label htmlFor="airplane-mode">Activate</Label>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card x-chunk="dashboard-01-chunk-3">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2"></CardHeader>
+                <CardContent>
+                  <Button asChild variant="ghost">
+                    <a href="#">
+                      <div className="text-2xl font-bold">Bonus Data</div>
+                    </a>
+                  </Button>
+                  <p className="text-xs text-muted-foreground">
+                    +20.1% from last month
+                  </p>
+                  <br />
+                  <div className="flex items-center space-x-2">
+                    <Switch id="airplane-mode" />
+                    <Label htmlFor="airplane-mode">Activate</Label>
+                  </div>
                 </CardContent>
               </Card>
             </div>
